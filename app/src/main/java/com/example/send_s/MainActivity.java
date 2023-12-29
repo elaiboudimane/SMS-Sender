@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -14,6 +15,9 @@ import android.widget.EditText;
 
 import android.Manifest;
 import android.widget.Toast;
+
+import com.example.send_s.ui.login.LoginActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,10 +30,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //Initialisation des variables
         editTextMessage = findViewById(R.id.editTextMessage);
         editTextPhone = findViewById(R.id.editTextPhone);
         btnSend = findViewById(R.id.btnSend);
+
+        Button btnLogout = findViewById(R.id.btnLogout);
 
         //Listener pour le boutton d'envoie
         btnSend.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +51,15 @@ public class MainActivity extends AppCompatActivity {
                     //Quand la permission est 'not granted' faut demander la permission
                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS},100);
                 }
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
